@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\CreateUserRequest;
+use App\Services\UserService;
+use App\Traits\JsonResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    use JsonResponser;
+    public function __construct(protected UserService $userService)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +31,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(CreateUserRequest $request)
     {
-        //
+
+        $this->userService->create($request->all());
+        return $this->successResponse();
     }
 
     /**
@@ -80,5 +92,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function me()
+    {
+        return response()->json([
+            'status' => 'success',
+            'user' => Auth::user(),
+        ]);
     }
 }

@@ -34,7 +34,7 @@ class MakeService extends BaseMakeFile
         return "<?php        
 namespace App\\{$this->folderName};
 
-use App\Service\BaseModelService;
+use App\Services\BaseModelService;
 
 class {$this->fileName} extends BaseModelService
 {
@@ -45,7 +45,7 @@ class {$this->fileName} extends BaseModelService
     protected function generateBaseModelServiceContent()
     {
         return '<?php
-namespace App\Service;
+namespace App\Services;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
