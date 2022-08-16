@@ -73,7 +73,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return ['exp' => Carbon::now()->addDays(2)->timestamp];
+        return [];
     }
 
     protected function password(): Attribute

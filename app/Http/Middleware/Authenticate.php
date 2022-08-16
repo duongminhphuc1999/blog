@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\TokenInvalidException;
+use Exception;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -14,8 +16,29 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             return route('login');
         }
+    }
+
+    protected function authenticate($request, array $guards)
+    {
+
+        foreach ($guards as $guard) {
+            if (!$this->auth->guard($guard)->check()) {
+                continue;
+            }
+
+            if ($guard === 'admin-api' || $guard === 'api') {
+                return $this->auth->shouldUse($guard);
+            }
+        }
+
+        $this->unAuthenticate($guards);
+    }
+
+    protected function unAuthenticate(array $guards): void
+    {
+        throw new TokenInvalidException();
     }
 }

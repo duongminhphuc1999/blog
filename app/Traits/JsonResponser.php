@@ -7,12 +7,13 @@ use Illuminate\Http\JsonResponse;
 trait JsonResponser
 {
 
-    public function successResponse(string $message = ''): JsonResponse
+    public function successResponse(string|array $data = ''): JsonResponse
     {
-        $message = empty($messags) ? __('messages.success.default') : $message;
-        return response()->json([
-            'status' => true,
-            'message' => $message,
-        ]);
+
+        if (is_string($data)) {
+            $data = empty($data) ? ['message' => __('messages.success.default')] : ['message' => $data];
+        }
+
+        return response()->json(array_merge(['status' => true], $data));
     }
 }
