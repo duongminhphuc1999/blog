@@ -1,36 +1,32 @@
 <?php
+
+use App\Enums\Permissions;
+use App\Enums\UserRole;
+
+
 return [
-    'super_admin' => [
+    UserRole::SUPPER_ADMIN->value => [
         'roles' => [
-            'name' => 'super-admin',
+            'name' => UserRole::SUPPER_ADMIN->value,
         ],
     ],
-    'admin' => [
+    UserRole::ADMIN->value  => [
         'roles' => [
-            'name' => 'admin',
+            'name' => UserRole::ADMIN->value,
         ],
-        'permissions' => [
-            'list_article',
-            'show_article',
-            'update_article',
-            'list_image',
-            'show_image',
-            'update_image',
-            'create_image',
-            'delete_image',
-        ],
+        'permissions' => Permissions::cases(),
     ],
-    'client' => [
+    UserRole::CLIENT->value => [
         'roles' => [
-            'name' => 'client',
+            'name' => UserRole::CLIENT->value,
         ],
         'permissions' => [
-            'list_article',
-            'list_image',
-            'show_image',
-            'update_image',
-            'create_image',
-            'delete_image',
+            Permissions::LIST_ARTICLE->value,
+            Permissions::LIST_IMAGE->value,
+            Permissions::SHOW_IMAGE->value,
+            Permissions::UPDATE_IMAGE->value,
+            Permissions::CREATE_IMAGE->value,
+            Permissions::DELETE_IMAGE->value,
         ],
     ],
 ];

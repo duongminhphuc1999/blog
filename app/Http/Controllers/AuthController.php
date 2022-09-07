@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Models\User;
+use App\Services\UserService;
 use App\Traits\JsonResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,6 +14,10 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     use JsonResponser;
+
+    public function __construct(protected UserService $userService)
+    {
+    }
 
     public function login(Request $request)
     {
@@ -41,5 +48,16 @@ class AuthController extends Controller
             'type' => 'bearer',
             'token' => Auth::refresh(),
         ]);
+    }
+
+
+    public function register(CreateUserRequest $request)
+    {
+        $this->userService->createUser($request->all());
+        return $this->successResponse();
+    }
+
+    public function sendVerifyEmailMail(Request $request, User $user)
+    {
     }
 }

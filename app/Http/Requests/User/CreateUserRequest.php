@@ -16,6 +16,13 @@ class CreateUserRequest extends BaseRequest
         return [
             'email' => 'email|required|unique:users',
             'password' => 'min:6|max:60|required',
+            'username' => 'string|max:30|nullable',
+            'first_name' => 'string|max:30|nullable',
+            'last_name' => 'string|max:30|nullable',
+            'birthday' => 'date|nullable',
+            'image' => 'string|max:30|nullable',
+            'description' => 'string|nullable',
+            'role' => 'string|required'
         ];
     }
 }

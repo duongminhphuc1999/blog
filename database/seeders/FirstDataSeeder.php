@@ -18,17 +18,16 @@ class FirstDataSeeder extends Seeder
      */
     public function run()
     {
+
+        Role::create(config('roles.' . UserRole::SUPPER_ADMIN->value . '.roles'));
+
         $user = User::create([
             'email' => '18duongminhphuc@gmail.com',
-            'username' => 'phuc18',
             'password' => 123456789,
-            'role' => UserRole::SUPPER_ADMIN,
+            'username' => 'Supper'
         ]);
-        UserDetail::create(['id' => $user->id]);
 
-        // Create role super_admin
-        Role::create(config('roles.super_admin.roles'));
         // Assign role super admin to user
-        $user->assignRole(config('roles.super_admin.roles'));
+        $user->assignRole(config('roles.' . UserRole::SUPPER_ADMIN->value . '.roles'));
     }
 }

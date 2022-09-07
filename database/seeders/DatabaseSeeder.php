@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             FirstDataSeeder::class,
             PermissionSeeder::class,
-            QqSeeder::class
         ]);
     }
 }

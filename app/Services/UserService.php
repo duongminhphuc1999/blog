@@ -47,4 +47,13 @@ class UserService extends BaseModelService
 
         return new ProfileResource($user);
     }
+
+    public function createUser(array $data)
+    {
+        $user = $this->create($data);
+        $user->assignRole($data['role']);
+
+
+        return $user;
+    }
 }

@@ -17,7 +17,7 @@ class PermissionSeeder extends Seeder
     {
         // Add admin role
         $adminRole = Role::where('name', config('roles.admin.roles'))->first();
-        if (!$adminRole) {
+        if (!$adminRole) {  
             $adminRole = Role::create(config('roles.admin.roles'));
         }
         // Get new admin permission

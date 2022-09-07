@@ -30,11 +30,16 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected $fillable = [ 
         'name',
         'email',
         'username',
-        'role',
+        'first_name',
+        'last_name',
+        'birthday',
+        'image',
+        'description',
+        'email_verified_at',
         'password',
     ];
 
@@ -55,8 +60,6 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'role' => UserRole::class,
-        'password',
     ];
 
     /**
