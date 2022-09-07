@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
+
+class CustomPaginatedResourceResponse extends PaginatedResourceResponse
+{
+    protected function paginationInformation($request)
+    {
+        $resource = $this->resource->resource;
+
+        $default = [
+            'total' => $resource->total(),
+            'total_page' => $resource->lastPage(),
+            'current_page' => $resource->currentPage(),
+        ];
+
+        return $default;
+    }
+}

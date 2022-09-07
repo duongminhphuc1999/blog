@@ -6,6 +6,8 @@ use App\Enums\UserRole;
 use App\Models\User;
 use App\Models\UserDetail;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+
 
 class FirstDataSeeder extends Seeder
 {
@@ -23,5 +25,10 @@ class FirstDataSeeder extends Seeder
             'role' => UserRole::SUPPER_ADMIN,
         ]);
         UserDetail::create(['id' => $user->id]);
+
+        // Create role super_admin
+        Role::create(config('roles.super_admin.roles'));
+        // Assign role super admin to user
+        $user->assignRole(config('roles.super_admin.roles'));
     }
 }

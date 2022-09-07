@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('imageable_id');
             $table->string('imageable_type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

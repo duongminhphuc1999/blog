@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Requests\User\UpdateProfileRequest;
+use App\Models\User;
 use App\Services\UserService;
 use App\Traits\JsonResponser;
 use Illuminate\Http\Request;
@@ -23,19 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(CreateUserRequest $request)
-    {
-
-        $this->userService->create($request->all());
-        return $this->successResponse();
+        // $user
     }
 
     /**
@@ -44,9 +34,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $this->userService->create($request->all());
+        return $this->successResponse();
     }
 
     /**
@@ -55,32 +46,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showProfile(User $user)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $userData = $this->userService->getProfile($user);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateProfile(UpdateProfileRequest $request, User $user)
     {
-        //
+        $this->userService->updateProfile($user, $request->all());
+
+        return $this->successResponse('Success update profile');
     }
 
     /**
@@ -89,9 +71,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $this->userService->delete($user);
+        return $this->successResponse('Success delete user');
     }
 
     public function me()

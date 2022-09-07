@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::post('/user/create', [UserController::class, 'create']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/me', [UserController::class, 'me'])->middleware('auth:api');
 Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
+
+Route::post('/users/store', [UserController::class, 'store']);
+Route::get('/users/{users}', [UserController::class, 'showProfile'])->middleware('auth:api');
+Route::get('/users', [UserController::class, 'index'])->middleware('auth:api');

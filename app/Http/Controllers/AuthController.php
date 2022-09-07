@@ -28,18 +28,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request)
-    {
-
-        $this->userService->create([
-            'email' => $request->email,
-            'username' => $request->username,
-            'password' => $request->password,
-        ]);
-
-        return $this->successResponse();
-    }
-
     public function logout()
     {
         Auth::logout();
@@ -50,11 +38,8 @@ class AuthController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
-            'authorisation' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
+            'type' => 'bearer',
+            'token' => Auth::refresh(),
         ]);
     }
 }
